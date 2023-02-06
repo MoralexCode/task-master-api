@@ -66,13 +66,17 @@ EMAIL_PASSWORD=ojhg567ujhgfgh
 
 5.- Para crear la DB, debes de abrir otro terminal ejecutar el siguiente comando:
 
+![](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white)
+
 ```
 docker exec -it taskmaster sh
 
 sequelize-cli db:migrate
+
+sequelize-cli db:seed:all
 ```
 
-> Con eso ya debe de quedar corriendo la app
+> Con eso ya debe de quedar corriendo la app, mas información sobre las [migraciones](https://sequelize.org/docs/v6/other-topics/migrations/)
 
 6.-Si no tienes ![test](https://img.shields.io/badge/-%20Docker%20instalado-red) ejecuta este correrlo dentro de tu equipo local para instalar las dependencias:
 
@@ -86,7 +90,9 @@ sequelize-cli db:migrate
 
 # Cómo usar:
 
-Una vez descargado, puedes ejecutar los siguiente endpoints en un cliente rest, te recomiendo que importes las siguientes petciones curl o tambien lo puedes ejecutar en una terminal directamente si lo deseas:
+![](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white) ![](https://img.shields.io/badge/iTerm2-000000?style=for-the-badge&logo=iterm2&logoColor=white)
+
+Una vez descargado, puedes ejecutar los siguiente endpoints en un cliente rest, te recomiendo que importes las siguientes peticiones curl o tambien lo puedes ejecutar en una terminal directamente si lo deseas:
 
 Crear un usuario:
 
@@ -98,18 +104,18 @@ curl --location --request POST 'http://localhost:3600/api/v1/users' \
     "surname": "Morales",
     "nickname": "Moralex",
     "email": "oscar@moralexcode.com",
-    "password": "123$5"
+    "password": "1234$"
 }'
 ```
 
 Hacer login y generar un token:
 
 ```
-curl --location --request POST ' http://localhost:3600/api/v1/login' \
+curl --location --request POST 'http://localhost:3600/api/v1/login' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "email": "oscar@moralexcode.com",
-    "password": "123$5"
+    "password": "1234$"
 }'
 ```
 
@@ -128,7 +134,7 @@ curl --location --request POST 'http://localhost:3600/api/v1/projects' \
 Crear una recordatorio:
 
 ```
-curl --location --request POST ' http://localhost:3600/api/v1/reminders' \
+curl --location --request POST 'http://localhost:3600/api/v1/reminders' \
 --header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaGVjayI6dHJ1ZSwiZGF0YVVzZXIiOnsibmFtZSI6Ik9zY2FyIiwiZW1haWwiOiJvc2Nhci5tb3JhbGVzQGdtYWlsLmNvbSIsInVzZXJfaWQiOjIsImZpcnN0X3RpbWUiOm51bGx9LCJpYXQiOjE2NzU2MzEyNDEsImV4cCI6MTY3ODIyMzI0MX0.LHMLvx4S-biGAZlW-jI951QddDVYBL6Z6fS8vfVFijI' \
 --header 'Content-Type: application/json' \
 --data-raw '{

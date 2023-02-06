@@ -8,7 +8,7 @@ const user = {
 	name: 'Oscar',
 	surname: 'Moralex',
 	email: 'oscar@moralexcode.com',
-	password: '123$5',
+	password: '1234$',
 	nickname: 'Moralex'
 };
 //login to get auth token
@@ -52,7 +52,7 @@ test('Get a User', async () => {
 	// 	name: 'Oscar',
 	// 	surname: 'Moralex',
 	// 	email: 'oscar@moralexcode.com',
-	// 	password: '123$5',
+	// 	password: '1234$',
 	// 	nickname: 'Moralex'
 	// };
 	// const user_id = await api
@@ -100,7 +100,7 @@ test('Delete a User', async () => {
 		name: 'Oscar',
 		surname: 'Moralex',
 		email: 'oscar.morales@gmail.com',
-		password: '123$5',
+		password: '1234$',
 		nickname: 'Moralex'
 	};
 	const user_id = await api
