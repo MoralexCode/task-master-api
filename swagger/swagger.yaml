@@ -1,0 +1,151 @@
+swagger: "2.0"
+info:
+  description: "API"
+  version: "1.0.0"
+  title: "Swagger "
+#host: "ec2-18-204-207-162.compute-1.amazonaws.com:3000"
+host: "localhost:3000"
+basePath: "/api/v1"
+tags:
+  - name: "Login"
+    description: "Serice to get token"
+  - name: "Clients"
+    description: "Services for clients"
+  - name: "Clinics"
+    description: "Services for clinics"
+  - name: "Request"
+    description: "Services for clinics"
+  - name: "Analysis"
+    description: "Services for clinics"
+schemes:
+  - "http"
+paths:
+  /login:
+    post:
+      tags:
+        - "Login"
+      summary: ""
+      description: "This functions is to log in and get tokent for the active user"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/loginRequest"
+      responses:
+        200:
+          $ref: "#/definitions/loginResponse"
+        400:
+          $ref: "#/definitions/ApiResponse"
+        401:
+          $ref: "#/definitions/ApiResponse"
+        500:
+          $ref: "#/definitions/ApiResponse"
+
+  /passwordrecovery:
+    post:
+      tags:
+        - "Login"
+      summary: ""
+      description: "This functions is to reset pasword"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: ""
+          required: true
+          schema:
+            $ref: "#/definitions/passwordResetRequest"
+      responses:
+        200:
+          $ref: "#/definitions/passwordResetResponse"
+        400:
+          $ref: "#/definitions/ApiResponse"
+        401:
+          $ref: "#/definitions/ApiResponse"
+        500:
+          $ref: "#/definitions/ApiResponse"
+ 
+securityDefinitions:
+  ApiKeyAuth:
+    type: apiKey
+    in: header
+    name: authorization
+definitions:
+  loginRequest:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+      - "firebase_token"
+    properties:
+      email:
+        type: "string"
+      password:
+        type: "string"
+      firebase_token:
+        type: "string"
+
+  loginResponse:
+    type: object
+    properties:
+      message:
+        type: "string"
+      provider_login:
+        type: "string"
+      token:
+        type: "string"
+      successfull:
+        type: "boolean"
+      dataUser:
+        type: "object"
+        properties:
+          id:
+            type: "integer"
+          email:
+            type: "string"
+          client:
+            $ref: "#/definitions/clientModel"
+          collector:
+            $ref: "#/definitions/collectorModel"
+
+  passwordResetRequest:
+    type: "object"
+    required:
+      - "email"
+    properties:
+      email:
+        type: "string"
+
+  passwordResetResponse:
+    type: object
+    properties:
+      message:
+        type: "string"
+      provider_login:
+        type: "string"
+      token:
+        type: "string"
+      successfull:
+        type: "boolean"
+      data:
+        type: "string"
+
+  ApiResponse:
+    type: object
+    properties:
+      data:
+        type: object
+      status:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"

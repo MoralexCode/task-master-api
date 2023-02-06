@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  taskmaster:
+    container_name: taskmaster
+    build:
+      context: .
+      dockerfile: containers/app/Dockerfile
+    ports:
+      - 3600:3600
+    depends_on:
+      - taskmasterdb 
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      NODE_ENV: development 
+
+  taskmasterdb:  # <- ;)
+    container_name: taskmasterdb
+    image: mysql:8.0
+    # platform: linux/amd64
+    # command: --default-authentication-plugin=mysql_native_password
+    # restart: always
+    # env_file:  # <-- we use the previously defined values
+    #  - containers/db/database.env  
+    volumes:
+     - database_volume:/var/lib/mysql 
+    environment: 
+      - MYSQL_DATABASE=taskmaster
+      - MYSQL_USER=MoralexCode
+      - MYSQL_PASSWORD=s3cr3t
+      - MYSQL_ROOT_PASSWORD=s3cr3t 
+ 
+
+volumes:
+  database_volume: 
